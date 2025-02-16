@@ -5,13 +5,18 @@ from espn_api.football import League
 def rank_players(league):
     ranks = {}
     for team in league.teams:
+        #each team in the league
         for player in team.roster:
+            #each player on each team
             position = player.position
             if position not in ranks:
                 ranks[position] = []
+                #add positions to dictionary
             ranks[position].append(player)
+            #add player to the respective position
     for position, players in ranks.items():
         ranks[position] = sorted(players, key = lambda r: r.posRank)
+        #sort/rank players based on their rank (which is based on their average score)
     for position, players in ranks.items():
         print(f"{position}: {[player.name for player in players]}")
 
